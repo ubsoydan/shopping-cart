@@ -6,19 +6,23 @@ const storeItemTemplate = document.querySelector("#store-item-template");
 const storeItemContainer = document.querySelector("[data-store-container]");
 const IMAGE_URL = "https://dummyimage.com/420x260";
 
+// Basically a container for store, this'll help invoking store items
 export function renderStore() {
-    if (storeItemContainer == null) return; //failsafe for not trying to load store on other pages
+    if (storeItemContainer == null) return; //failsafe for not trying to load the store on other pages
 
-    //globaleventlistener
+    //Global event listener for add-to-cart buttons
     document.addEventListener("click", (e) => {
         if (e.target.matches("[data-add-to-cart-button]")) {
             const itemId = e.target.closest("[data-store-item-id]").dataset.id;
             addToCart(parseInt(itemId));
         }
     });
+
+    // Fetch DB and run renderStoreItem for each obj item
     items.forEach(renderStoreItem);
 }
 
+// For rendering each store item
 function renderStoreItem(item) {
     const storeItem = storeItemTemplate.content.cloneNode(true);
 
